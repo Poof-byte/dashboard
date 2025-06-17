@@ -204,7 +204,8 @@ def load_and_process_data(csv_string, column_renames=None, numeric_cols=None, mi
     numeric_cols_used = []
 
     try:
-        df = pd.read_csv(io.StringIO(csv_string), sep='\t')
+        # Explicitly handle common missing value strings, including 'None'
+        df = pd.read_csv(io.StringIO(csv_string), sep='\t', na_values=['None', 'NaN', 'null', ''])
 
         # Create 'Date' column
         df['Date'] = pd.to_datetime(df['YEAR'].astype(str) + '-' + df['MONTH'].astype(str) + '-01', errors='coerce')
@@ -773,7 +774,7 @@ elif st.session_state.current_section == "Hybrid CNN-LSTM Performance":
 
     hybrid_meteorological_data = {
         "Parameter": ["Rainfall", "Relative Humidity", "Max Temperature", "Minimum Temperature", "Wind Direction",
-                      "Wind Speed"],
+                      "  Wind Speed"],
         "MSE": [6134.6893, 7.5743, 3.1053, 0.6286, 15458.7536, 0.8482],
         "MAE": [57.50735, 2.25265, 1.38521, 0.59754, 96.45390, 0.72400],
         "R²": [0.56573, 0.42606, -1.00029, -0.35387, 0.22742, -0.98397]
@@ -789,11 +790,12 @@ elif st.session_state.current_section == "Water Quality Trends - Weekly":
             "Displaying weekly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_weekly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
 
-        for col in numeric_cols_water_quality_trends:
-            fig = px.line(df_water_quality_weekly, x='Period', y=col,
-                          title=f'Weekly Trend of {col}',
-                          labels={'Period': 'Week', 'value': 'Value'})
-            st.plotly_chart(fig, use_container_width=True)
+        # Plot all water quality trends on a single graph
+        fig = px.line(df_water_quality_weekly, x='Period', y=numeric_cols_water_quality_trends,
+                      title='Weekly Trends of Water Quality Parameters',
+                      labels={'Period': 'Week', 'value': 'Value'})
+        fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+        st.plotly_chart(fig, use_container_width=True)
 
         st.info(
             "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
@@ -808,11 +810,12 @@ elif st.session_state.current_section == "Water Quality Trends - Monthly":
             "Displaying monthly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_monthly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
 
-        for col in numeric_cols_water_quality_trends:
-            fig = px.line(df_water_quality_monthly, x='Period', y=col,
-                          title=f'Monthly Trend of {col}',
-                          labels={'Period': 'Month', 'value': 'Value'})
-            st.plotly_chart(fig, use_container_width=True)
+        # Plot all water quality trends on a single graph
+        fig = px.line(df_water_quality_monthly, x='Period', y=numeric_cols_water_quality_trends,
+                      title='Monthly Trends of Water Quality Parameters',
+                      labels={'Period': 'Month', 'value': 'Value'})
+        fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+        st.plotly_chart(fig, use_container_width=True)
 
         st.info(
             "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
@@ -827,14 +830,15 @@ elif st.session_state.current_section == "Water Quality Trends - Yearly":
             "Displaying yearly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_yearly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
 
-        for col in numeric_cols_water_quality_trends:
-            fig = px.line(df_water_quality_yearly, x='Period', y=col,
-                          title=f'Yearly Trend of {col}',
-                          labels={'Period': 'Year', 'value': 'Value'})
-            st.plotly_chart(fig, use_container_width=True)
+        # Plot all water quality trends on a single graph
+        fig = px.line(df_water_quality_yearly, x='Period', y=numeric_cols_water_quality_trends,
+                      title='Yearly Trends of Water Quality Parameters',
+                      labels={'Period': 'Year', 'value': 'Value'})
+        fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+        st.plotly_chart(fig, use_container_width=True)
 
         st.info(
-            "The Water Quality Index (WQI) is a single number thatS that reflects the overall water quality. A higher WQI generally indicates better water quality.")
+            "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
     else:
         st.info(
             "No yearly water quality trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -848,11 +852,12 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_weekly.empty:
             st.dataframe(df_meteorological_weekly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
-            for col in numeric_cols_meteorological_trends:
-                fig = px.line(df_meteorological_weekly, x='Period', y=col,
-                              title=f'Weekly Trend of {col}',
-                              labels={'Period': 'Week', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all meteorological trends on a single graph
+            fig = px.line(df_meteorological_weekly, x='Period', y=numeric_cols_meteorological_trends,
+                          title='Weekly Trends of Meteorological Parameters',
+                          labels={'Period': 'Week', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No weekly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -860,11 +865,12 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_monthly.empty:
             st.dataframe(df_meteorological_monthly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
-            for col in numeric_cols_meteorological_trends:
-                fig = px.line(df_meteorological_monthly, x='Period', y=col,
-                              title=f'Monthly Trend of {col}',
-                              labels={'Period': 'Month', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all meteorological trends on a single graph
+            fig = px.line(df_meteorological_monthly, x='Period', y=numeric_cols_meteorological_trends,
+                          title='Monthly Trends of Meteorological Parameters',
+                          labels={'Period': 'Month', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No monthly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -872,11 +878,12 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_yearly.empty:
             st.dataframe(df_meteorological_yearly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
-            for col in numeric_cols_meteorological_trends:
-                fig = px.line(df_meteorological_yearly, x='Period', y=col,
-                              title=f'Yearly Trend of {col}',
-                              labels={'Period': 'Year', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all meteorological trends on a single graph
+            fig = px.line(df_meteorological_yearly, x='Period', y=numeric_cols_meteorological_trends,
+                          title='Yearly Trends of Meteorological Parameters',
+                          labels={'Period': 'Year', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No yearly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -890,11 +897,12 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_weekly.empty:
             st.dataframe(df_volcanic_activity_weekly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
-            for col in numeric_cols_volcanic_activity_trends:
-                fig = px.line(df_volcanic_activity_weekly, x='Period', y=col,
-                              title=f'Weekly Trend of {col}',
-                              labels={'Period': 'Week', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all volcanic activity trends on a single graph
+            fig = px.line(df_volcanic_activity_weekly, x='Period', y=numeric_cols_volcanic_activity_trends,
+                          title='Weekly Trends of Volcanic Activity Parameters',
+                          labels={'Period': 'Week', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No weekly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -902,11 +910,12 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_monthly.empty:
             st.dataframe(df_volcanic_activity_monthly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
-            for col in numeric_cols_volcanic_activity_trends:
-                fig = px.line(df_volcanic_activity_monthly, x='Period', y=col,
-                              title=f'Monthly Trend of {col}',
-                              labels={'Period': 'Month', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all volcanic activity trends on a single graph
+            fig = px.line(df_volcanic_activity_monthly, x='Period', y=numeric_cols_volcanic_activity_trends,
+                          title='Monthly Trends of Volcanic Activity Parameters',
+                          labels={'Period': 'Month', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No monthly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -914,11 +923,12 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_yearly.empty:
             st.dataframe(df_volcanic_activity_yearly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
-            for col in numeric_cols_volcanic_activity_trends:
-                fig = px.line(df_volcanic_activity_yearly, x='Period', y=col,
-                              title=f'Yearly Trend of {col}',
-                              labels={'Period': 'Year', 'value': 'Value'})
-                st.plotly_chart(fig, use_container_width=True)
+            # Plot all volcanic activity trends on a single graph
+            fig = px.line(df_volcanic_activity_yearly, x='Period', y=numeric_cols_volcanic_activity_trends,
+                          title='Yearly Trends of Volcanic Activity Parameters',
+                          labels={'Period': 'Year', 'value': 'Value'})
+            fig.update_layout(xaxis_type='category')  # Ensure x-axis is treated as categories
+            st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No yearly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
