@@ -30,43 +30,20 @@ st.title(" Environmental Prediction Dashboard")
 st.markdown(f"**Date & Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 st.markdown("---")
 
-# --- Input Variables for Each Section ---
-
-# Water Quality Parameters and Simulated Data
+# Parameters
 water_quality_params = ["Ammonia", "Bottom Water Temp.", "Middle Water Temp.", "Surface Water Temp.",
                         "Dissolved Oxygen", "Nitrate", "pH Level", "Phosphate"]
+meteo_params = ["Rainfall", "Relative Humidity", "Max Temperature", "Minimum Temperature", "Wind Direction",
+                "Wind Speed"]
+volcanic_params = ["CO₂", "SO₂"]  # New Volcanic Parameters
 
-# Simulated Water Quality True & Predicted Values
+# Simulated Water Quality True & Predicted Values (for plotting)
 y_true_wq = np.random.rand(len(water_quality_params)) * 10
 y_pred_lstm_wq = y_true_wq + np.random.normal(0, 0.5, len(water_quality_params))
 y_pred_cnn_wq = y_true_wq + np.random.normal(0, 0.7, len(water_quality_params))
 y_pred_hybrid_wq = y_true_wq + np.random.normal(0, 0.3, len(water_quality_params))
 
-# Water Quality Metrics Data (Manually Input)
-wq_lstm_metrics = {
-    "Parameter": water_quality_params,
-    "MSE": [0.11830, 0.65115, 1.00949, 0.69685, 0.06093, 2.1903, 0.19347, 0.22463],
-    "MAE": [0.09872, 0.53507, 0.84357, 0.42207, 0.04968, 1.56651, 0.15204, 0.15202],
-    "R²": [-2.76204, -0.96678, -0.24864, -0.24373, -8.87357, -0.74374, 0.29938, 0.0033]
-}
-wq_cnn_metrics = {
-    "Parameter": water_quality_params,
-    "MSE": [1.39594, 1.40864, 1.03885, 0.73711, 0.73711, 3.81135, 2.49556, 0.65751],
-    "MAE": [1.35772, 1.32216, 1.02245, 0.54551, 4.86078, 3.37753, 2.48291, 0.61166],
-    "R²": [-2.83056, -8.2045, -0.32234, -0.39157, -6.3013, -4.27999, -115.57361, -7.53973]
-}
-wq_hybrid_metrics = {
-    "Parameter": water_quality_params,
-    "MSE": [0.10341, 1.03128, 0.77751, 0.60096, 0.02999, 1.43801, 0.18122, 0.20981],
-    "MAE": [0.09339, 0.92348, 0.63248, 0.41008, 0.02339, 1.41256, 0.14368, 0.1575],
-    "R²": [-1.87446, -3.93352, 0.25929, 0.07502, -1.39146, 0.24838, 0.38527, 0.13048]
-}
-
-# Meteorological Parameters and Simulated Data
-meteo_params = ["Rainfall", "Relative Humidity", "Max Temperature", "Minimum Temperature", "Wind Direction",
-                "Wind Speed"]
-
-# Simulated Meteorological True & Predicted Values
+# Simulated Meteorological True & Predicted Values (for plotting)
 y_true_meteo = {
     "Rainfall": np.random.uniform(0, 50),
     "Relative Humidity": np.random.uniform(50, 100),
@@ -88,32 +65,7 @@ meteo_predictions = {
     "Hybrid": y_pred_hybrid_meteo
 }
 
-# Meteorological Model Metrics (manually input)
-meteo_metrics_data = {
-    "Model": ["LSTM"] * 6 + ["CNN"] * 6 + ["Hybrid"] * 6,
-    "Parameter": meteo_params * 3,
-    "MSE": [
-        7482.55, 37.8890, 6.8140, 7.8374, 21489.9642, 50.2397,
-        7761.7486, 10.5074, 13.3732, 0.8315, 16884.6820, 4.2438,
-        6134.6893, 7.5743, 3.1053, 0.6286, 15458.7536, 0.8482
-    ],
-    "MAE": [
-        65.36984, 4.17260, 2.12671, 1.72942, 126.47095, 5.14132,
-        67.31469, 2.42539, 3.02555, 0.63255, 107.33447, 1.90034,
-        57.50735, 2.25265, 1.38521, 0.59754, 96.45390, 0.72400
-    ],
-    "R²": [
-        0.47031, -1.87164, -3.38781, -15.88326, -0.07401, -116.55547,
-        0.45055, 0.20353, -7.61236, -0.79087, 0.15545, -8.92233,
-        0.56573, 0.42606, -1.00029, -0.35387, 0.22742, -0.98397
-    ]
-}
-
-
-# Volcanic Activity Parameters and Simulated Data
-volcanic_params = ["CO₂", "SO₂"]
-
-# Simulated Volcanic Activity True & Predicted Values
+# Simulated Volcanic Activity True & Predicted Values (for plotting)
 y_true_volcanic = {
     "CO₂": np.random.uniform(400, 1500),  # Simulating elevated CO2
     "SO₂": np.random.uniform(0, 200)  # Simulating SO2 in ppb
@@ -132,33 +84,77 @@ volcanic_predictions = {
     "Hybrid": y_pred_hybrid_volcanic
 }
 
-# Volcanic Activity Metrics Table (Manually Input)
-volcanic_metrics_data = {
-    "Parameter": volcanic_params,
-    "MSE": [387161.5542, 1618533.3276],
-    "MAE": [588.08010, 899.45384],
-    "R²": [-1.16058, -0.65138]
-}
+
+# Meteorological Model Metrics (manually input)
+def create_meteo_df():
+    data = {
+        "Model": ["LSTM"] * 6 + ["CNN"] * 6 + ["Hybrid"] * 6,
+        "Parameter": meteo_params * 3,
+        "MSE": [
+            7482.55, 37.8890, 6.8140, 7.8374, 21489.9642, 50.2397,
+            7761.7486, 10.5074, 13.3732, 0.8315, 16884.6820, 4.2438,
+            6134.6893, 7.5743, 3.1053, 0.6286, 15458.7536, 0.8482
+        ],
+        "MAE": [
+            65.36984, 4.17260, 2.12671, 1.72942, 126.47095, 5.14132,
+            67.31469, 2.42539, 3.02555, 0.63255, 107.33447, 1.90034,
+            57.50735, 2.25265, 1.38521, 0.59754, 96.45390, 0.72400
+        ],
+        "R²": [
+            0.47031, -1.87164, -3.38781, -15.88326, -0.07401, -116.55547,
+            0.45055, 0.20353, -7.61236, -0.79087, 0.15545, -8.92233,
+            0.56573, 0.42606, -1.00029, -0.35387, 0.22742, -0.98397
+        ]
+    }
+    return pd.DataFrame(data)
 
 
-# --- Functions to retrieve metrics (now using the separated variables) ---
-
+# Water Quality Metrics Table
 def get_wq_metrics():
-    df_lstm = pd.DataFrame(wq_lstm_metrics)
+    # LSTM Metrics
+    lstm_data = {
+        "Parameter": water_quality_params,
+        "MSE": [0.11830, 0.65115, 1.00949, 0.69685, 0.06093, 2.1903, 0.19347, 0.22463],
+        "MAE": [0.09872, 0.53507, 0.84357, 0.42207, 0.04968, 1.56651, 0.15204, 0.15202],
+        "R²": [-2.76204, -0.96678, -0.24864, -0.24373, -8.87357, -0.74374, 0.29938, 0.0033]
+    }
+    df_lstm = pd.DataFrame(lstm_data)
     df_lstm["Model"] = "LSTM"
-    df_cnn = pd.DataFrame(wq_cnn_metrics)
+
+    # CNN Metrics
+    cnn_data = {
+        "Parameter": water_quality_params,
+        "MSE": [1.39594, 1.40864, 1.03885, 0.73711, 0.73711, 3.81135, 2.49556, 0.65751],
+        "MAE": [1.35772, 1.32216, 1.02245, 0.54551, 4.86078, 3.37753, 2.48291, 0.61166],
+        "R²": [-2.83056, -8.2045, -0.32234, -0.39157, -6.3013, -4.27999, -115.57361, -7.53973]
+    }
+    df_cnn = pd.DataFrame(cnn_data)
     df_cnn["Model"] = "CNN"
-    df_hybrid = pd.DataFrame(wq_hybrid_metrics)
+
+    # Hybrid Metrics (from the third table provided in previous turns)
+    hybrid_data = {
+        "Parameter": water_quality_params,
+        "MSE": [0.10341, 1.03128, 0.77751, 0.60096, 0.02999, 1.43801, 0.18122, 0.20981],
+        "MAE": [0.09339, 0.92348, 0.63248, 0.41008, 0.02339, 1.41256, 0.14368, 0.1575],
+        "R²": [-1.87446, -3.93352, 0.25929, 0.07502, -1.39146, 0.24838, 0.38527, 0.13048]
+    }
+    df_hybrid = pd.DataFrame(hybrid_data)
     df_hybrid["Model"] = "Hybrid"
+
     combined_df = pd.concat([df_lstm, df_cnn, df_hybrid])
     return combined_df
 
-def get_meteo_metrics():
-    return pd.DataFrame(meteo_metrics_data)
 
+# Volcanic Activity Metrics Table - NEW function using provided static data
 def get_volcanic_metrics():
+    volcanic_metrics_data = {
+        "Parameter": volcanic_params,
+        "MSE": [387161.5542, 1618533.3276],
+        "MAE": [588.08010, 899.45384],
+        "R²": [-1.16058, -0.65138]
+    }
     df_volcanic = pd.DataFrame(volcanic_metrics_data)
-    df_volcanic["Model"] = "LSTM" # Assuming only LSTM metrics are provided for volcanic for simplicity
+    df_volcanic["Model"] = "LSTM"
     return df_volcanic
 
 # --- Water Quality Index (WQI) Calculation ---
@@ -372,7 +368,7 @@ if tab == "Water Quality Parameters":
 # --- Meteorological Section ---
 elif tab == "Meteorological Parameters":
     st.subheader("Model Performance Metrics (Meteorological Parameters)")
-    meteo_df = get_meteo_metrics()
+    meteo_df = create_meteo_df()
     st.dataframe(meteo_df, use_container_width=True)
 
     # Select model for plotting (Bar Chart and Live Meters will still use this)
