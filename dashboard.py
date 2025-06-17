@@ -142,7 +142,6 @@ def get_wq_metrics():
     df_hybrid["Model"] = "Hybrid"
 
     combined_df = pd.concat([df_lstm, df_cnn, df_hybrid])
-    # No longer grouping by model to show individual parameter metrics per model
     return combined_df
 
 
@@ -158,10 +157,95 @@ def get_volcanic_metrics():
     df_volcanic["Model"] = "LSTM"
     return df_volcanic
 
+# --- Water Quality Index (WQI) Calculation ---
+# Simplified WQI for demonstration. In a real application, you'd use established WQI methodologies.
+# This example considers DO, pH, Ammonia, Nitrate, and Phosphate.
+# For simplicity, we'll assume ideal ranges and assign penalty scores outside these ranges.
+# Lower WQI score indicates better water quality.
+
+def calculate_wqi(ammonia, do, nitrate, ph, phosphate):
+    # Ideal ranges (example values - these should be based on actual water quality standards)
+    ideal_do = (5.0, 9.0)  # mg/L
+    ideal_ph = (6.5, 8.5)
+    ideal_ammonia = (0.0, 0.1)  # mg/L
+    ideal_nitrate = (0.0, 10.0) # mg/L
+    ideal_phosphate = (0.0, 0.1) # mg/L
+
+    # Weights for each parameter (example weights)
+    # These weights should reflect the relative importance of each parameter to overall quality
+    w_ammonia = 0.25
+    w_do = 0.30
+    w_nitrate = 0.15
+    w_ph = 0.20
+    w_phosphate = 0.10
+
+    # Calculate sub-indices (simplified penalty score: higher penalty for worse quality)
+    # A score of 0 indicates ideal, higher scores indicate deviation/pollution
+    
+    # Dissolved Oxygen (DO) - too low or too high is bad
+    if do < ideal_do[0]:
+        si_do = (ideal_do[0] - do) * 10 # Larger deviation, higher penalty
+    elif do > ideal_do[1]:
+        si_do = (do - ideal_do[1]) * 5 # Slightly less penalty for too high, adjust as needed
+    else:
+        si_do = 0
+
+    # pH Level - too low or too high is bad
+    if ph < ideal_ph[0]:
+        si_ph = (ideal_ph[0] - ph) * 15 # pH is very sensitive
+    elif ph > ideal_ph[1]:
+        si_ph = (ph - ideal_ph[1]) * 15
+    else:
+        si_ph = 0
+
+    # Ammonia - higher is worse
+    if ammonia > ideal_ammonia[1]:
+        si_ammonia = (ammonia - ideal_ammonia[1]) * 50 # Ammonia is very critical
+    else:
+        si_ammonia = 0
+    
+    # Nitrate - higher is worse
+    if nitrate > ideal_nitrate[1]:
+        si_nitrate = (nitrate - ideal_nitrate[1]) * 10
+    else:
+        si_nitrate = 0
+
+    # Phosphate - higher is worse
+    if phosphate > ideal_phosphate[1]:
+        si_phosphate = (phosphate - ideal_phosphate[1]) * 30 # Phosphate can lead to eutrophication
+    else:
+        si_phosphate = 0
+
+    # Combine sub-indices with weights
+    wqi = (si_ammonia * w_ammonia +
+           si_do * w_do +
+           si_nitrate * w_nitrate +
+           si_ph * w_ph +
+           si_phosphate * w_phosphate)
+    
+    # Normalize WQI to a scale (e.g., 0-100 or 0-10) - this is a simplified normalization
+    # For a penalty-based WQI, a higher number means worse quality.
+    # We can cap it or scale it to make it more intuitive if needed.
+    # Let's say, 0-100, where 0 is perfect and 100+ is very bad.
+    wqi = min(wqi, 100.0) # Cap at 100 for display purposes if it goes too high with this simplified model
+
+    return wqi
+
+def get_wqi_category(wqi_score):
+    if wqi_score <= 10:
+        return "Excellent 🤩"
+    elif wqi_score <= 25:
+        return "Good 😊"
+    elif wqi_score <= 50:
+        return "Fair 🤔"
+    elif wqi_score <= 75:
+        return "Poor 😟"
+    else:
+        return "Very Poor 🤢"
 
 # Tabs for navigation
 tab = st.radio("Select Data Type",
-               ["Water Quality Parameters", "Meteorological Parameters", "Volcanic Activity Parameters"])
+                ["Water Quality Parameters", "Meteorological Parameters", "Volcanic Activity Parameters"])
 
 # --- Water Quality Section ---
 if tab == "Water Quality Parameters":
@@ -219,6 +303,67 @@ if tab == "Water Quality Parameters":
     for i in range(len(water_quality_params)):
         with cols[i % 4]:
             st.metric(label=water_quality_params[i], value=f"{selected_pred[i]:.2f}")
+
+    # --- Water Quality Index Display ---
+    st.markdown("---")
+    st.subheader("💧 Overall Water Quality Index (WQI)")
+
+    # Get the index for each relevant parameter in the water_quality_params list
+    # This assumes the order of water_quality_params is consistent
+    try:
+        ammonia_idx = water_quality_params.index("Ammonia")
+        do_idx = water_quality_params.index("Dissolved Oxygen")
+        nitrate_idx = water_quality_params.index("Nitrate")
+        ph_idx = water_quality_params.index("pH Level")
+        phosphate_idx = water_quality_params.index("Phosphate")
+
+        # Calculate WQI for True Values
+        true_wqi = calculate_wqi(
+            ammonia=y_true_wq[ammonia_idx],
+            do=y_true_wq[do_idx],
+            nitrate=y_true_wq[nitrate_idx],
+            ph=y_true_wq[ph_idx],
+            phosphate=y_true_wq[phosphate_idx]
+        )
+        true_wqi_category = get_wqi_category(true_wqi)
+
+        # Calculate WQI for the selected model's predictions
+        predicted_wqi = calculate_wqi(
+            ammonia=selected_pred[ammonia_idx],
+            do=selected_pred[do_idx],
+            nitrate=selected_pred[nitrate_idx],
+            ph=selected_pred[ph_idx],
+            phosphate=selected_pred[phosphate_idx]
+        )
+        predicted_wqi_category = get_wqi_category(predicted_wqi)
+
+        # Display WQI metrics
+        wqi_cols = st.columns(2)
+        with wqi_cols[0]:
+            st.metric(label="Current WQI (True Values)", value=f"{true_wqi:.2f}", help="Lower score is better water quality.")
+            st.info(f"**Category:** {true_wqi_category}")
+        with wqi_cols[1]:
+            st.metric(label=f"Predicted WQI by {selected_model}", value=f"{predicted_wqi:.2f}", help="Lower score is better water quality.")
+            st.info(f"**Category:** {predicted_wqi_category}")
+
+        st.markdown(f"""
+        <div style="background-color: #f0f2f6; padding: 10px; border-radius: 5px;">
+            <p style="font-size: 14px; color: #555;">
+                <strong>WQI Categories (Example):</strong><br>
+                0-10: Excellent 🤩<br>
+                11-25: Good 😊<br>
+                26-50: Fair 🤔<br>
+                51-75: Poor 😟<br>
+                76-100+: Very Poor 🤢<br>
+                <br>
+                <em>Note: This WQI is a simplified example. For practical applications, use established WQI methodologies and standards.</em>
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+    except ValueError as e:
+        st.error(f"Error calculating WQI: One or more required water quality parameters (Ammonia, Dissolved Oxygen, Nitrate, pH Level, Phosphate) are missing from `water_quality_params`. Please ensure they are included and spelled correctly. Details: {e}")
 
 # --- Meteorological Section ---
 elif tab == "Meteorological Parameters":
@@ -305,11 +450,11 @@ else:  # tab == "Volcanic Activity Parameters"
     # Bar Chart for Volcanic Activity
     fig_volcanic_bar = go.Figure()
     fig_volcanic_bar.add_trace(go.Bar(name="True Values", x=volcanic_params,
-                                      y=[y_true_volcanic[param] for param in volcanic_params],
-                                      marker_color='#33658A'))
+                                     y=[y_true_volcanic[param] for param in volcanic_params],
+                                     marker_color='#33658A'))
     fig_volcanic_bar.add_trace(go.Bar(name=f"Predicted by {selected_volcanic_model}", x=volcanic_params,
-                                      y=[selected_pred_volcanic[param] for param in volcanic_params],
-                                      marker_color='#F26430'))
+                                     y=[selected_pred_volcanic[param] for param in volcanic_params],
+                                     marker_color='#F26430'))
     fig_volcanic_bar.update_layout(
         barmode='group',
         xaxis_title="Air Quality Parameter",
@@ -338,11 +483,11 @@ else:  # tab == "Volcanic Activity Parameters"
     line_df_volcanic = pd.DataFrame(line_data_volcanic)
 
     line_fig_volcanic = px.line(line_df_volcanic,
-                                x="Parameter",
-                                y="Value",
-                                color="Type",
-                                markers=True,
-                                color_discrete_sequence=["#33658A", "#F26430", "#3E92CC",
+                                 x="Parameter",
+                                 y="Value",
+                                 color="Type",
+                                 markers=True,
+                                 color_discrete_sequence=["#33658A", "#F26430", "#3E92CC",
                                                          "#6D597A"])  # Added more colors
     line_fig_volcanic.update_layout(plot_bgcolor='#fffafa', paper_bgcolor='#fffafa', font=dict(color="#020310"))
     st.plotly_chart(line_fig_volcanic, use_container_width=True)
