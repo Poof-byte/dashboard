@@ -343,7 +343,6 @@ water_quality_csv_data = """YEAR	MONTH	SURFACE WATER TEMP (°C)	MIDDLE WATER TEM
 2020	2	26.41	26.4	26.29	7.23	0.15	0.15	2.53	2.73
 2020	3	28.98	27.28	26.93	7.53	0.07	0.08	2.49	5.96
 2020	4	29.89	28.32	27.2	8.87	0.27	0.14	2.69	5.5
-2020	5	31.8	29.07	27.18	8.18	0.15	0.2	2.6	5.26
 22020	6	31.13	29.2	27.16	8.1	0.19	0.08	2.49	4.74
 2020	7	31.81	29.43	27.53	8.16	0.27	0.04	3.0	3.58
 2020	9	31.34	29.71	28.21	8.07	0.12	0.03	2.4	5.23
@@ -364,240 +363,220 @@ water_quality_csv_data = """YEAR	MONTH	SURFACE WATER TEMP (°C)	MIDDLE WATER TEM
 2022	10	28.46	28.32	27.88	8.16	0.54	0.17	2.51	5.03
 2022	11	28.87	28.67	27.9	8.14	0.59	0.12	2.46	4.53
 2022	12	28.64	28.48	27.94	8.0	0.66	0.14	2.33	5.37
-    2023	1	26.81	26.81	NaN	7.76	0.75	0.3	2.63	2.82
-    2023	2	31.86	31.72	NaN	8.19	0.69	0.21	2.68	6.57
-    2023	3	26.74	26.72	NaN	8.21	0.84	0.24	2.6	5.83
-    2023	4	29.82	27	NaN	8.76	0.78	0.06	2.59	8.84
-    2023	5	30.88	27.49	NaN	8.78	1.0	0.1	2.54	7.95
-    2023	6	31.28	28.45	NaN	8.86	0.63	0.16	2.5	6.73
-    2023	7	31.52	27.99	NaN	8.86	0.22	0.07	2.39	5.82
-    2023	8	30.58	29.32	NaN	8.6	0.18	0.14	2.54	6.66
-    2023	9	30.44	29.2	NaN	8.57	0.25	0.09	2.47	6.42
-    2023	10	28.84	27.39	NaN	8.51	0.28	0.05	2.58	5.41
-    2023	11	27.05	26.94	26.12	8.28	0.35	0.11	NaN	5.02
-    2023	12	27.25	26.92	26.68	8.23	0.29	0.11	NaN	5.31
-    2024	1	25.98	25.68	25.62	8.08	0.29	0.2	NaN	4.89
-    2024	2	25.29	25.09	24.92	7.93	0.32	0.24	3.02	4.02
-    2024	3	26	25.66	25.22	8.32	0.27	0.16	2.87	6.45
-    22024	4	28.15	26.34	25.62	8.88	0.49	0.12	2.85	8
-    2024	8	29.56	27.48	26.7	8.76	0.23	0.42	2.65	7.04
-    2024	9	28.96	27.89	26.1	8.56	0.26	0.08	2.88	5.84
-    2024	10	29.35	28.16	26.76	8.71	0.46	0.18	2.45	5.84
-    2024	12	26.99	26.84	26.7	8.57	0.49	0.25	2.94	4.61
-    """
+"""
 
 meteorological_csv_data = """YEAR	MONTH	RAINFALL	TMAX	TMIN	RH	WIND_SPEED	WIND_DIRECTION
-    2013	1	46.2	29.2	22.7	79	2	40
-    2013	2	122	30.5	23.2	78	2	70
-    2013	3	20.5	31.9	23.4	77	2	40
-    2013	4	42.4	34.4	23.8	75	1	40
-    2013	5	230.3	33.2	24.9	81	1	40
-    2013	6	386.1	32.4	24.8	85	1	240
-    2013	7	285.9	31.6	24.2	85	1	40
-    2013	8	524.7	30.7	24.2	86	2	240
-    2013	9	815.8	30.1	24.1	89	1	220
-    2013	10	121.1	30.7	23.2	83	1	40
-    2013	11	225.2	30.4	24.3	83	2	40
-    2013	12	49.1	30.4	24	81	2	40
-    2014	1	0.5	28.4	20.9	74	3	40
-    2014	2	0	30.7	20.6	76	2	40
-    2014	3	28.1	32	22.1	77	2	40
-    2014	4	22.4	34.1	22.8	76	1	40
-    2014	5	154.6	35	24.5	80	1	40
-    2014	6	78.9	33.1	24.7	83	1	240
-    2014	7	406.7	31.1	24.2	87	2	360
-    2014	8	212.5	31.9	23.8	84	2	220
-    2014	9	321.5	31.4	23.6	85	2	40
-    2014	10	223.5	31.4	23.4	86	2	40
-    2014	11	43	31.3	23.2	81	2	40
-    2014	12	326.8	29.3	23.6	83	3	40
-    2015	1	50.8	28.6	21.6	80	2	40
-    2015	2	5	30.4	21.1	77	2	40
-    2015	3	15.2	31.7	21.5	75	2	40
-    2015	4	0	34	23.4	73	2	40
-    2015	5	11.7	34.7	24.1	76	1	40
-    2015	6	159.7	34	24.7	81	1	220
-    2015	7	309.1	32	24.1	83	2	220
-    2015	8	265.3	32.3	23.9	85	2	220
-    2015	9	243.8	32.6	24.2	85	1	40
-    2015	10	230.2	32.2	23.4	84	2	40
-    2015	11	43.4	31.8	24.3	82	2	40
-    2015	12	292.5	30.6	23	83	2	40
-    2016	1	18.7	31	22.3	82	2	40
-    2016	2	45.3	30.7	22.5	79	3	40
-    2016	3	10.2	33.5	22.1	79	2	40
-    2016	4	8.2	35.8	24.2	75	1	40
-    2016	5	101.4	35.9	25	78	1	40
-    2016	6	95.6	34.5	24.6	85	1	220
-    2016	7	225.5	33.7	24.1	86	1	40
-    2016	8	375.4	31.8	25	86	2	220
-    2016	9	167	32.6	24.1	86	1	220
-    2016	10	312.5	32	23.8	87	1	220
-    2016	11	162.1	31.5	23.5	85	2	40
-    2016	12	187.3	31	23.8	84	2	40
-    2017	1	87.1	29.8	22.9	83	3	40
-    2017	2	20.2	30.4	21.4	80	3	40
-    2017	3	19.4	32.3	22.4	77	2	40
-    2017	4	17.8	34.6	23.8	77	2	40
-    2017	5	126.6	35.1	25	80	1	220
-    2017	6	115.8	34.8	24.2	83	1	220
-    2017	7	254	32.3	24.4	85	1	220
-    2017	8	375	33	24.1	86	2	220
-    2017	9	585	32.9	24.1	87	1	220
-    2017	10	241.7	31.9	24	88	1	40
-    2017	11	189.7	31.9	24.5	85	2	40
-    2017	12	183.7	30.3	23.6	84	2	40
-    2018	1	40.1	30	22.8	82	3	40
-    2018	2	2.4	31.6	22.9	80	2	40
-    2018	3	4	32.3	22.8	77	2	40
-    2018	4	6.02	34.6	23.9	75	2	40
-    2018	5	131.5	34.9	24.6	79	1	70
-    2018	6	488.4	32.3	24.1	85	1	70
-    2018	7	596.2	31.2	24.1	87	2	70
-    2018	8	160.8	31.7	24.6	84	2	230
-    2018	9	255.6	32	23.8	86	1	220
-    2018	10	127.7	32.8	23.3	82	1	40
-    2018	11	20.3	31.9	23.8	81	2	40
-    2018	12	286.2	30.1	23.7	84	2	40
-    2019	1	17.3	29.9	22.3	80	3	40
-    2019	2	9.1	31	20.7	77	2	40
-    2019	3	0	33.1	21.9	74	2	40
-    2019	4	0.2	35	23.6	72	2	40
-    2019	5	139.2	34.7	24.6	82	1	210
-    2019	6	150.2	34.9	25.3	81	2	40
-    2019	7	243.9	32.7	24.1	86	2	240
-    2019	8	323	31.3	24.9	86	2	240
-    2019	9	234.6	31.6	24.3	87	2	240
-    2019	10	38.1	32.9	23.5	82	2	20
-    2019	11	145.2	31.8	23.8	84	2	40
-    2019	12	194.1	30.7	23.5	83	2	40
-    2020	2	28.2	30.3	22.3	78	3	40
-    2020	3	4.4	33.5	23.1	77	2	40
-    2020	4	3	34.4	24.4	74	2	40
-    2020	5	114	35.3	25.1	79	2	40
-    2020	6	124.6	34	24.7	83	1	220
-    2020	7	255	33.3	24.2	86	1	40
-    2020	8	173.9	32.5	24.1	86	1	40
-    2020	9	101.7	33.1	24.3	86	1	220
-    2020	10	481.3	31.5	24.1	87	2	40
-    2020	11	424	31.1	23.7	84	2	40
-    2020	12	149.9	30.6	24.1	85	2	40
-    2021	1	51.6	29.5	23.4	82	3	40
-    2021	2	35.1	30.5	22.6	81	2	40
-    2021	3	43.2	32.5	23.7	80	2	40
-    2021	4	11.4	33.4	23	77	2	40
-    2021	5	56.6	35	25.1	76	2	40
-    2021	6	174.6	33.1	24.3	84	2	360
-    2021	7	632	31.5	24.9	85	3	220
-    2021	8	168.4	31.9	24.5	84	2	360
-    2021	9	295.7	31.9	23.9	85	2	360
-    2021	10	161	31.4	24.5	83	2	360
-    2021	11	51.3	31.8	24.3	80	2	40
-    2021	12	91.4	29.7	23.2	78	3	40
-    2022	1	15.8	30.1	22.5	78	3	40
-    2022	2	35.4	30.4	23.5	78	3	40
-    2022	3	40.8	33.3	24	75	2	40
-    2022	4	117.6	32.1	24.1	78	2	40
-    2022	5	284	33.6	24	79	1	360
-    2022	6	253.5	32.9	24.1	83	1	360
-    2022	7	199.7	32.4	24.4	84	1	360
-    2022	8	275.5	31.6	23.9	86	1	360
-    2022	9	325	31.5	24.1	85	2	360
-    2022	10	475.7	31.6	24.3	84	2	360
-    2022	11	79	31.6	24.4	82	2	40
-    2022	12	116.5	29.8	23.5	82	2	40
-    2023	1	203.3	28.6	23.2	80	3	40
-    2023	2	22.7	30.2	23.1	77	3	40
-    2023	3	0.8	31.8	22.5	70	2	40
-    2023	4	101.4	33.3	23.7	75	1	40
-    2023	5	89.8	33.8	25.1	78	2	40
-    2023	6	252.9	32.8	24.6	82	1	220
-    2023	7	394.1	32.3	24.7	82	2	220
-    2023	8	143.7	32.2	25.5	81	3	240
-    2023	9	163.4	32.5	24.6	84	2	240
-    2023	10	89.9	31.5	24.5	82	2	40
-    2023	11	166.6	31.2	24.5	81	2	40
-    2023	12	127.9	31	24	81	2	40
-    """
+2013	1	46.2	29.2	22.7	79	2	40
+2013	2	122	30.5	23.2	78	2	70
+2013	3	20.5	31.9	23.4	77	2	40
+2013	4	42.4	34.4	23.8	75	1	40
+2013	5	230.3	33.2	24.9	81	1	40
+2013	6	386.1	32.4	24.8	85	1	240
+2013	7	285.9	31.6	24.2	85	1	40
+2013	8	524.7	30.7	24.2	86	2	240
+2013	9	815.8	30.1	24.1	89	1	220
+2013	10	121.1	30.7	23.2	83	1	40
+2013	11	225.2	30.4	24.3	83	2	40
+2013	12	49.1	30.4	24	81	2	40
+2014	1	0.5	28.4	20.9	74	3	40
+2014	2	0	30.7	20.6	76	2	40
+2014	3	28.1	32	22.1	77	2	40
+2014	4	22.4	34.1	22.8	76	1	40
+2014	5	154.6	35	24.5	80	1	40
+2014	6	78.9	33.1	24.7	83	1	240
+2014	7	406.7	31.1	24.2	87	2	360
+2014	8	212.5	31.9	23.8	84	2	220
+2014	9	321.5	31.4	23.6	85	2	40
+2014	10	223.5	31.4	23.4	86	2	40
+2014	11	43	31.3	23.2	81	2	40
+2014	12	326.8	29.3	23.6	83	3	40
+2015	1	50.8	28.6	21.6	80	2	40
+2015	2	5	30.4	21.1	77	2	40
+2015	3	15.2	31.7	21.5	75	2	40
+2015	4	0	34	23.4	73	2	40
+2015	5	11.7	34.7	24.1	76	1	40
+2015	6	159.7	34	24.7	81	1	220
+2015	7	309.1	32	24.1	83	2	220
+2015	8	265.3	32.3	23.9	85	2	220
+2015	9	243.8	32.6	24.2	85	1	40
+2015	10	230.2	32.2	23.4	84	2	40
+2015	11	43.4	31.8	24.3	82	2	40
+2015	12	292.5	30.6	23	83	2	40
+2016	1	18.7	31	22.3	82	2	40
+2016	2	45.3	30.7	22.5	79	3	40
+2016	3	10.2	33.5	22.1	79	2	40
+2016	4	8.2	35.8	24.2	75	1	40
+2016	5	101.4	35.9	25	78	1	40
+2016	6	95.6	34.5	24.6	85	1	220
+2016	7	225.5	33.7	24.1	86	1	40
+2016	8	375.4	31.8	25	86	2	220
+2016	9	167	32.6	24.1	86	1	220
+2016	10	312.5	32	23.8	87	1	220
+2016	11	162.1	31.5	23.5	85	2	40
+2016	12	187.3	31	23.8	84	2	40
+2017	1	87.1	29.8	22.9	83	3	40
+2017	2	20.2	30.4	21.4	80	3	40
+2017	3	19.4	32.3	22.4	77	2	40
+2017	4	17.8	34.6	23.8	77	2	40
+2017	5	126.6	35.1	25	80	1	220
+2017	6	115.8	34.8	24.2	83	1	220
+2017	7	254	32.3	24.4	85	1	220
+2017	8	375	33	24.1	86	2	220
+2017	9	585	32.9	24.1	87	1	220
+2017	10	241.7	31.9	24	88	1	40
+2017	11	189.7	31.9	24.5	85	2	40
+2017	12	183.7	30.3	23.6	84	2	40
+2018	1	40.1	30	22.8	82	3	40
+2018	2	2.4	31.6	22.9	80	2	40
+2018	3	4	32.3	22.8	77	2	40
+2018	4	6.02	34.6	23.9	75	2	40
+2018	5	131.5	34.9	24.6	79	1	70
+2018	6	488.4	32.3	24.1	85	1	70
+2018	7	596.2	31.2	24.1	87	2	70
+2018	8	160.8	31.7	24.6	84	2	230
+2018	9	255.6	32	23.8	86	1	220
+2018	10	127.7	32.8	23.3	82	1	40
+2018	11	20.3	31.9	23.8	81	2	40
+2018	12	286.2	30.1	23.7	84	2	40
+2019	1	17.3	29.9	22.3	80	3	40
+2019	2	9.1	31	20.7	77	2	40
+2019	3	0	33.1	21.9	74	2	40
+2019	4	0.2	35	23.6	72	2	40
+2019	5	139.2	34.7	24.6	82	1	210
+2019	6	150.2	34.9	25.3	81	2	40
+2019	7	243.9	32.7	24.1	86	2	240
+2019	8	323	31.3	24.9	86	2	240
+2019	9	234.6	31.6	24.3	87	2	240
+2019	10	38.1	32.9	23.5	82	2	20
+2019	11	145.2	31.8	23.8	84	2	40
+2019	12	194.1	30.7	23.5	83	2	40
+2020	2	28.2	30.3	22.3	78	3	40
+2020	3	4.4	33.5	23.1	77	2	40
+2020	4	3	34.4	24.4	74	2	40
+2020	5	114	35.3	25.1	79	2	40
+2020	6	124.6	34	24.7	83	1	220
+2020	7	255	33.3	24.2	86	1	40
+2020	8	173.9	32.5	24.1	86	1	40
+2020	9	101.7	33.1	24.3	86	1	220
+2020	10	481.3	31.5	24.1	87	2	40
+2020	11	424	31.1	23.7	84	2	40
+2020	12	149.9	30.6	24.1	85	2	40
+2021	1	51.6	29.5	23.4	82	3	40
+2021	2	35.1	30.5	22.6	81	2	40
+2021	3	43.2	32.5	23.7	80	2	40
+2021	4	11.4	33.4	23	77	2	40
+2021	5	56.6	35	25.1	76	2	40
+2021	6	174.6	33.1	24.3	84	2	360
+2021	7	632	31.5	24.9	85	3	220
+2021	8	168.4	31.9	24.5	84	2	360
+2021	9	295.7	31.9	23.9	85	2	360
+2021	10	161	31.4	24.5	83	2	360
+2021	11	51.3	31.8	24.3	80	2	40
+2021	12	91.4	29.7	23.2	78	3	40
+2022	1	15.8	30.1	22.5	78	3	40
+2022	2	35.4	30.4	23.5	78	3	40
+2022	3	40.8	33.3	24	75	2	40
+2022	4	117.6	32.1	24.1	78	2	40
+2022	5	284	33.6	24	79	1	360
+2022	6	253.5	32.9	24.1	83	1	360
+2022	7	199.7	32.4	24.4	84	1	360
+2022	8	275.5	31.6	23.9	86	1	360
+2022	9	325	31.5	24.1	85	2	360
+2022	10	475.7	31.6	24.3	84	2	360
+2022	11	79	31.6	24.4	82	2	40
+2022	12	116.5	29.8	23.5	82	2	40
+2023	1	203.3	28.6	23.2	80	3	40
+2023	2	22.7	30.2	23.1	77	3	40
+2023	3	0.8	31.8	22.5	70	2	40
+2023	4	101.4	33.3	23.7	75	1	40
+2023	5	89.8	33.8	25.1	78	2	40
+2023	6	252.9	32.8	24.6	82	1	220
+2023	7	394.1	32.3	24.7	82	2	220
+2023	8	143.7	32.2	25.5	81	3	240
+2023	9	163.4	32.5	24.6	84	2	240
+2023	10	89.9	31.5	24.5	82	2	40
+2023	11	166.6	31.2	24.5	81	2	40
+2023	12	127.9	31	24	81	2	40
+"""
 
 so2_flux_csv_data = """YEAR	MONTH	SO2_Flux
-    2020	1	1281.93
-    2020	2	92.89
-    2020	9	50
-    2021	3	865.41
-    2021	4	1558.68
-    2021	5	2961.57
-    2021	6	4631.54
-    2021	7	6148.63
-    2021	8	5973.09
-    2021	9	7785.37
-    2021	10	9550.62
-    2021	11	8704.39
-    2021	12	7130.75
-    2022	1	10213.23
-    2022	2	5973.67
-    2022	3	9833.5
-    2022	4	3167.5
-    2022	5	996.27
-    2022	6	1715.71
-    2022	7	3018.67
-    2022	8	5230.65
-    2022	9	4949.89
-    2022	10	3213
-    2022	11	1603.25
-    2022	12	2981.78
-    2023	1	5307.12
-    2023	2	4345.33
-    2023	3	3279.83
-    2023	4	2941.62
-    2023	5	3555.38
-    2023	6	5611.08
-    2023	7	4913.11
-    2023	8	2628
-    2023	9	2991.4
-    2023	10	6146.55
-    2023	11	8144
-    2023	12	8832.88
-    2024	1	11845.11
-    2024	2	9449.9
-    2024	3	9988.77
-    2024	4	5521.2
-    2024	5	4360.33
-    2024	6	4845.38
-    2024	7	4259.86
-    2024	8	4153.82
-    2024	9	4447
-    2024	10	1803.2
-    2024	11	5283
-    2024	12	3469.75
-    """
+2020	1	1281.93
+2020	2	92.89
+2020	9	50
+2021	3	865.41
+2021	4	1558.68
+2021	5	2961.57
+2021	6	4631.54
+2021	7	6148.63
+2021	8	5973.09
+2021	9	7785.37
+2021	10	9550.62
+2021	11	8704.39
+2021	12	7130.75
+2022	1	10213.23
+2022	2	5973.67
+2022	3	9833.5
+2022	4	3167.5
+2022	5	996.27
+2022	6	1715.71
+2022	7	3018.67
+2022	8	5230.65
+2022	9	4949.89
+2022	10	3213
+2022	11	1603.25
+2022	12	2981.78
+2023	1	5307.12
+2023	2	4345.33
+2023	3	3279.83
+2023	4	2941.62
+2023	5	3555.38
+2023	6	5611.08
+2023	7	4913.11
+2023	8	2628
+2023	9	2991.4
+2023	10	6146.55
+2023	11	8144
+2023	12	8832.88
+2024	1	11845.11
+2024	2	9449.9
+2024	3	9988.77
+2024	4	5521.2
+2024	5	4360.33
+2024	6	4845.38
+2024	7	4259.86
+2024	8	4153.82
+2024	9	4447
+2024	10	1803.2
+2024	11	5283
+2024	12	3469.75
+"""
 
 co2_flux_csv_data = """YEAR	MONTH	CO2_FLUX
-    2013	3	870
-    2013	7	1700
-    2013	10	540
-    2014	1	500
-    2014	2	680
-    2014	6	700
-    2014	7	1800
-    2014	11	2290
-    2015	1	1980
-    2015	4	1580
-    2015	7	2300
-    2015	10	1550
-    2016	1	1380
-    2016	7	465
-    2017	1	460
-    2017	4	390
-    2017	7	598
-    2017	11	446
-    2018	3	984
-    2018	8	251.11
-    2019	3	311
-    2019	8	1302.57
-    2019	10	1147.15
-    2019	11	1364.36
-    """
+2013	3	870
+2013	7	1700
+2013	10	540
+2014	1	500
+2014	2	680
+2014	6	700
+2014	7	1800
+2014	11	2290
+2015	1	1980
+2015	4	1580
+2015	7	2300
+2015	10	1550
+2016	1	1380
+2016	7	465
+2017	1	460
+2017	4	390
+2017	7	598
+2017	11	446
+2018	3	984
+2018	8	251.11
+2019	3	311
+2019	8	1302.57
+2019	10	1147.15
+2019	11	1364.36
+"""
 
 # --- Load and Process Data for Each Category ---
 
@@ -671,6 +650,10 @@ else:
 # --- Sidebar Navigation ---
 st.sidebar.title("Navigation")
 
+# Add a menu button for the Introduction/Welcome Screen
+if st.sidebar.button("Introduction"):
+    st.session_state.current_section = "Welcome"
+
 # Section for Model Metric Performances
 st.sidebar.subheader("Model Metric Performances")
 
@@ -723,9 +706,9 @@ st.markdown("---")
 # Conditional rendering based on current_section in session state
 if st.session_state.current_section == "Welcome":
     st.write(
-        "Welcome to the Water Quality Index Analysis Dashboard. Use the sidebar to navigate through different sections.")
+        "Welcome to the Water Quality Index Analysis Dashboard. This interactive tool provides insights into water quality parameters, meteorological data, and volcanic activity metrics. You can also explore the performance of different deep learning models used for prediction.")
     st.info(
-        "Select a model from the 'Model Metric Performances' section or a trend period from the 'Data Trends' section in the sidebar.")
+        "Use the sidebar to navigate through different sections, including model performance metrics and various data trends (weekly, monthly, yearly).")
 
 elif st.session_state.current_section == "LSTM Performance":
     st.header("Deep Learning Model Performance - LSTM")
@@ -805,6 +788,13 @@ elif st.session_state.current_section == "Water Quality Trends - Weekly":
         st.write(
             "Displaying weekly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_weekly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
+
+        for col in numeric_cols_water_quality_trends:
+            fig = px.line(df_water_quality_weekly, x='Period', y=col,
+                          title=f'Weekly Trend of {col}',
+                          labels={'Period': 'Week', 'value': 'Value'})
+            st.plotly_chart(fig, use_container_width=True)
+
         st.info(
             "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
     else:
@@ -817,6 +807,13 @@ elif st.session_state.current_section == "Water Quality Trends - Monthly":
         st.write(
             "Displaying monthly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_monthly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
+
+        for col in numeric_cols_water_quality_trends:
+            fig = px.line(df_water_quality_monthly, x='Period', y=col,
+                          title=f'Monthly Trend of {col}',
+                          labels={'Period': 'Month', 'value': 'Value'})
+            st.plotly_chart(fig, use_container_width=True)
+
         st.info(
             "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
     else:
@@ -829,8 +826,15 @@ elif st.session_state.current_section == "Water Quality Trends - Yearly":
         st.write(
             "Displaying yearly averages for water quality parameters, including the calculated Water Quality Index (WQI):")
         st.dataframe(df_water_quality_yearly[['Period'] + numeric_cols_water_quality_trends], use_container_width=True)
+
+        for col in numeric_cols_water_quality_trends:
+            fig = px.line(df_water_quality_yearly, x='Period', y=col,
+                          title=f'Yearly Trend of {col}',
+                          labels={'Period': 'Year', 'value': 'Value'})
+            st.plotly_chart(fig, use_container_width=True)
+
         st.info(
-            "The Water Quality Index (WQI) is a single number that reflects the overall water quality. A higher WQI generally indicates better water quality.")
+            "The Water Quality Index (WQI) is a single number thatS that reflects the overall water quality. A higher WQI generally indicates better water quality.")
     else:
         st.info(
             "No yearly water quality trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -844,6 +848,11 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_weekly.empty:
             st.dataframe(df_meteorological_weekly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
+            for col in numeric_cols_meteorological_trends:
+                fig = px.line(df_meteorological_weekly, x='Period', y=col,
+                              title=f'Weekly Trend of {col}',
+                              labels={'Period': 'Week', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No weekly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -851,6 +860,11 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_monthly.empty:
             st.dataframe(df_meteorological_monthly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
+            for col in numeric_cols_meteorological_trends:
+                fig = px.line(df_meteorological_monthly, x='Period', y=col,
+                              title=f'Monthly Trend of {col}',
+                              labels={'Period': 'Month', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No monthly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -858,6 +872,11 @@ elif st.session_state.current_section.startswith("Meteorological Trends - "):
         if not df_meteorological_yearly.empty:
             st.dataframe(df_meteorological_yearly[['Period'] + numeric_cols_meteorological_trends],
                          use_container_width=True)
+            for col in numeric_cols_meteorological_trends:
+                fig = px.line(df_meteorological_yearly, x='Period', y=col,
+                              title=f'Yearly Trend of {col}',
+                              labels={'Period': 'Year', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No yearly meteorological trend data available. Please ensure the CSV data is properly formatted and contains no -999 or NaN values in relevant columns.")
@@ -871,6 +890,11 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_weekly.empty:
             st.dataframe(df_volcanic_activity_weekly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
+            for col in numeric_cols_volcanic_activity_trends:
+                fig = px.line(df_volcanic_activity_weekly, x='Period', y=col,
+                              title=f'Weekly Trend of {col}',
+                              labels={'Period': 'Week', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No weekly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -878,6 +902,11 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_monthly.empty:
             st.dataframe(df_volcanic_activity_monthly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
+            for col in numeric_cols_volcanic_activity_trends:
+                fig = px.line(df_volcanic_activity_monthly, x='Period', y=col,
+                              title=f'Monthly Trend of {col}',
+                              labels={'Period': 'Month', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No monthly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
@@ -885,6 +914,11 @@ elif st.session_state.current_section.startswith("Volcanic Activity Trends - "):
         if not df_volcanic_activity_yearly.empty:
             st.dataframe(df_volcanic_activity_yearly[['Period'] + numeric_cols_volcanic_activity_trends],
                          use_container_width=True)
+            for col in numeric_cols_volcanic_activity_trends:
+                fig = px.line(df_volcanic_activity_yearly, x='Period', y=col,
+                              title=f'Yearly Trend of {col}',
+                              labels={'Period': 'Year', 'value': 'Value'})
+                st.plotly_chart(fig, use_container_width=True)
         else:
             st.info(
                 f"No yearly volcanic activity trend data available. Please ensure the CSV data is properly formatted and contains no NaN values in relevant columns.")
